@@ -1,0 +1,1 @@
+# EduStack LMS Django project

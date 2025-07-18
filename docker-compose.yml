@@ -1,0 +1,42 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: edustack
+      POSTGRES_USER: edustack
+      POSTGRES_PASSWORD: edustack123
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - DB_HOST=db
+      - DB_NAME=edustack
+      - DB_USER=edustack
+      - DB_PASS=edustack123
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    command: npm start
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "4200:4200"
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  db_data: 
