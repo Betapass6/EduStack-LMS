@@ -1,0 +1,51 @@
+<div class="register-bg">
+  <div class="register-center">
+    <mat-card class="register-card mat-elevation-z8">
+      <div class="register-header">
+        <mat-icon class="logo-icon">school</mat-icon>
+        <h1 class="register-title">EduStack LMS</h1>
+        <p class="subtitle">Daftar akun baru</p>
+      </div>
+      <form (ngSubmit)="onSubmit()" class="register-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput [(ngModel)]="username" name="username" required placeholder="Masukkan username" />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="email" name="email" type="email" required placeholder="Masukkan email" />
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput [(ngModel)]="password" name="password" type="password" required placeholder="Masukkan password" />
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Ulangi Password</mat-label>
+          <input matInput [(ngModel)]="password2" name="password2" type="password" required placeholder="Ulangi password" />
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Role</mat-label>
+          <mat-select [(ngModel)]="role" name="role" required>
+            <mat-option *ngFor="let r of roles" [value]="r.value">{{ r.label }}</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+        <div *ngIf="error" class="error-message">
+          <mat-icon>error</mat-icon>
+          <span>{{ error }}</span>
+        </div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading || !username || !email || !password || !password2 || !role" class="register-button">
+          <mat-spinner *ngIf="loading" diameter="20" class="spinner"></mat-spinner>
+          <span *ngIf="!loading">Daftar</span>
+        </button>
+      </form>
+      <div class="register-footer">
+        <p>Sudah punya akun? <a routerLink="/login" class="login-link">Masuk di sini</a></p>
+      </div>
+    </mat-card>
+  </div>
+</div> 

@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-title>{{ isEdit ? 'Edit Tugas' : 'Tambah Tugas' }}</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Judul Tugas</mat-label>
+        <input matInput [(ngModel)]="title" name="title" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Instruksi</mat-label>
+        <textarea matInput [(ngModel)]="instructions" name="instructions" required></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Deadline</mat-label>
+        <input matInput [(ngModel)]="due_date" name="due_date" type="datetime-local" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Lampiran (opsional)</mat-label>
+        <input matInput type="file" (change)="onFileChange($event)" />
+      </mat-form-field>
+      <div *ngIf="error" style="color:red">{{ error }}</div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading">{{ isEdit ? 'Update' : 'Tambah' }}</button>
+    </mat-card-actions>
+  </mat-card>
+</form> 

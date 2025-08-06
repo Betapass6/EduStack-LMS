@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "outDir": "./dist/edustack-frontend-server",
+      "target": "ES2022",
+      "types": ["node"]
+    },
+    "files": [
+      "src/main.server.ts"
+    ]
+  }

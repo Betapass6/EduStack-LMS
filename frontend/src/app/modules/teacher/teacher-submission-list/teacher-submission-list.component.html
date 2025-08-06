@@ -1,0 +1,29 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<ng-container *ngIf="!loading && !error">
+  <h2>Daftar Submission</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let submission of submissions">
+      <mat-card style="width:100%">
+        <mat-card-header>
+          <mat-card-title>{{ submission.student }}</mat-card-title>
+          <mat-card-subtitle>Submitted: {{ submission.submitted_at | date:'short' }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <a *ngIf="submission.submission_file" [href]="submission.submission_file" target="_blank">Download Jawaban</a>
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Nilai</mat-label>
+              <input matInput [(ngModel)]="gradeInput[submission.id]" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Feedback</mat-label>
+              <textarea matInput [(ngModel)]="feedbackInput[submission.id]"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="gradeSubmission(submission)">Simpan Nilai</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-list-item>
+  </mat-list>
+</ng-container> 

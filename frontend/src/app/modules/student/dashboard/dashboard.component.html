@@ -1,0 +1,71 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<ng-container *ngIf="!loading && !error">
+  <ng-container [ngSwitch]="role">
+    <!-- Dashboard Siswa -->
+    <div *ngSwitchCase="'siswa'">
+      <h2>Dashboard Siswa</h2>
+      <div *ngIf="role === 'siswa'">
+        <h3>Statistik</h3>
+        <div>Jumlah Kelas: {{ courses.length }}</div>
+        <div>Jumlah Tugas: {{ assignments.length }}</div>
+        <!-- (Opsional) Tambahkan jumlah submission jika ada service-nya -->
+        <h3>Reminder Tugas Terdekat</h3>
+        <ul>
+          <li *ngFor="let a of upcomingAssignments">
+            {{ a.title }} - Deadline: {{ a.due_date | date:'short' }}
+          </li>
+        </ul>
+      </div>
+      <app-grade-report></app-grade-report>
+      <mat-list>
+        <mat-list-item *ngFor="let course of courses">
+          <mat-card style="width:100%">
+            <mat-card-header>
+              <mat-card-title>{{ course.title }}</mat-card-title>
+              <mat-card-subtitle>Pengajar: {{ course.teacher }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ course.description }}</p>
+              <span *ngIf="course.category">Kategori: {{ course.category }}</span>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button (click)="goToCourse(course)">Detail</button>
+              <button mat-raised-button color="primary" (click)="enroll(course)">Enroll</button>
+            </mat-card-actions>
+          </mat-card>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <!-- Dashboard Guru -->
+    <div *ngSwitchCase="'guru'">
+      <h2>Dashboard Guru</h2>
+      <button mat-raised-button color="primary">Tambah Kelas</button>
+      <mat-list>
+        <mat-list-item *ngFor="let course of courses">
+          <mat-card style="width:100%">
+            <mat-card-header>
+              <mat-card-title>{{ course.title }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ course.description }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button (click)="goToCourse(course)">Detail</button>
+            </mat-card-actions>
+          </mat-card>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <!-- Dashboard Admin -->
+    <div *ngSwitchCase="'admin'">
+      <h2>Dashboard Admin</h2>
+      <p>Monitoring user, kelas, dan aktivitas (coming soon)</p>
+    </div>
+    <!-- Default -->
+    <div *ngSwitchDefault>
+      <p>Role tidak dikenali.</p>
+    </div>
+  </ng-container>
+</ng-container> 

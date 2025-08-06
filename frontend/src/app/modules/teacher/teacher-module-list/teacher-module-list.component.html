@@ -1,0 +1,21 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<ng-container *ngIf="!loading && !error">
+  <h2>Modul dalam Kelas</h2>
+  <button mat-raised-button color="primary" (click)="addModule()">Tambah Modul</button>
+  <mat-list>
+    <mat-list-item *ngFor="let module of modules">
+      <mat-card style="width:100%">
+        <mat-card-header>
+          <mat-card-title>{{ module.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <span>Urutan: {{ module.order }}</span>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="goToModule(module)">Detail/Edit</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-list-item>
+  </mat-list>
+</ng-container> 

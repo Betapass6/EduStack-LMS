@@ -1,0 +1,25 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<ng-container *ngIf="!loading && !error && quiz">
+  <h2>{{ quiz.title }}</h2>
+  <div>Durasi: {{ quiz.duration_minutes }} menit</div>
+  <div>Timer: {{ timeLeft | number }} detik</div>
+  <form (ngSubmit)="submitQuiz()" *ngIf="!submitted">
+    <div *ngFor="let q of quiz.questions">
+      <mat-card style="margin-bottom: 10px;">
+        <mat-card-title>{{ q.question }}</mat-card-title>
+        <mat-radio-group [(ngModel)]="answers[q.id]" name="answer-{{q.id}}">
+          <mat-radio-button value="A">A. {{ q.option_a }}</mat-radio-button><br />
+          <mat-radio-button value="B">B. {{ q.option_b }}</mat-radio-button><br />
+          <mat-radio-button value="C">C. {{ q.option_c }}</mat-radio-button><br />
+          <mat-radio-button value="D">D. {{ q.option_d }}</mat-radio-button><br />
+        </mat-radio-group>
+      </mat-card>
+    </div>
+    <button mat-raised-button color="primary" type="submit">Submit Quiz</button>
+  </form>
+  <div *ngIf="submitted">
+    <h3>Quiz Selesai!</h3>
+    <div>Skor: {{ score }}%</div>
+  </div>
+</ng-container> 

@@ -1,42 +1,52 @@
-version: '3.9'
+version: '3.8'
+
 services:
   db:
     image: postgres:15
-    restart: always
     environment:
-      POSTGRES_DB: edustack
-      POSTGRES_USER: edustack
-      POSTGRES_PASSWORD: edustack123
-    volumes:
-      - db_data:/var/lib/postgresql/data
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   backend:
     build: ./backend
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./backend:/app
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=1
-      - DB_HOST=db
-      - DB_NAME=edustack
-      - DB_USER=edustack
-      - DB_PASS=edustack123
     depends_on:
       - db
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    volumes:
+      - ./backend:/app
+    command: python manage.py migrate && python manage.py runserver 0.0.0.0:8000
 
   frontend:
     build: ./frontend
-    command: npm start
-    volumes:
-      - ./frontend:/app
     ports:
       - "4200:4200"
     environment:
-      - NODE_ENV=development
+      - API_URL=${API_URL}
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    command: npm start
 
 volumes:
-  db_data: 
+  postgres_data: 

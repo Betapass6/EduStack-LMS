@@ -1,0 +1,15 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<ng-container *ngIf="!loading && !error">
+  <h2>Forum Diskusi</h2>
+  <form (ngSubmit)="createDiscussion()" style="margin-bottom: 20px;">
+    <mat-form-field appearance="fill" style="width: 80%;">
+      <mat-label>Tulis diskusi baru...</mat-label>
+      <input matInput [(ngModel)]="newMessage" name="newMessage" required />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Kirim</button>
+  </form>
+  <ng-container *ngFor="let d of discussions">
+    <app-discussion-item [discussion]="d" [replyInput]="replyInput" (sendReply)="sendReply($event)"></app-discussion-item>
+  </ng-container>
+</ng-container> 

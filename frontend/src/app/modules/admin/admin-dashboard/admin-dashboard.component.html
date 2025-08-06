@@ -1,0 +1,17 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<ng-container *ngIf="!loading && !error && stats">
+  <h2>Statistik Admin</h2>
+  <ul>
+    <li>Total User: {{ stats.user_count }}</li>
+    <li>Admin: {{ stats.admin_count }}</li>
+    <li>Guru: {{ stats.teacher_count }}</li>
+    <li>Siswa: {{ stats.student_count }}</li>
+    <li>Total Kelas: {{ stats.course_count }}</li>
+    <li>Total Assignment: {{ stats.assignment_count }}</li>
+    <li>Total Quiz: {{ stats.quiz_count }}</li>
+    <li>Total Submission: {{ stats.submission_count }}</li>
+    <li>Total Quiz Submission: {{ stats.quiz_submission_count }}</li>
+  </ul>
+  <canvas id="adminStatsChart" width="400" height="200"></canvas>
+</ng-container> 

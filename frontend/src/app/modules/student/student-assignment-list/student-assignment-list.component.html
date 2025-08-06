@@ -1,0 +1,21 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<ng-container *ngIf="!loading && !error">
+  <h2>Daftar Tugas (Assignment)</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let assignment of assignments">
+      <mat-card style="width:100%">
+        <mat-card-header>
+          <mat-card-title>{{ assignment.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ assignment.instructions }}</p>
+          <span>Deadline: {{ assignment.due_date | date:'short' }}</span>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="goToSubmit(assignment)">Submit Jawaban</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-list-item>
+  </mat-list>
+</ng-container> 

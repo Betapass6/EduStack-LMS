@@ -1,0 +1,22 @@
+<div class="discussion-item" style="margin-left: 20px; margin-top: 10px;">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ discussion.author_username }}</mat-card-title>
+      <mat-card-subtitle>{{ discussion.created_at | date:'short' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ discussion.message }}</p>
+      <button mat-button (click)="toggleReply()">Reply</button>
+      <div *ngIf="showReplyForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Balas diskusi...</mat-label>
+          <input matInput [(ngModel)]="replyInput[discussion.id]" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="submitReply()">Kirim</button>
+      </div>
+      <div *ngIf="discussion.replies && discussion.replies.length">
+        <app-discussion-item *ngFor="let r of discussion.replies" [discussion]="r" [replyInput]="replyInput" (sendReply)="sendReply.emit($event)"></app-discussion-item>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div> 

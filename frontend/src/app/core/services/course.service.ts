@@ -7,10 +7,11 @@ import { AuthService } from './auth.service';
 export interface Course {
   id: string;
   title: string;
-  description: string;
-  teacher: string;
-  thumbnail?: string;
+  teacher?: string;
+  description?: string;
   category?: string;
+  modules?: any[];
+  thumbnail?: string;
   created_at: string;
   updated_at: string;
 }
@@ -45,5 +46,9 @@ export class CourseService {
 
   delete(id: string): Observable<any> {
     return this.http.delete(this.apiUrl + id + '/', { headers: this.getHeaders() });
+  }
+
+  enroll(courseId: string) {
+    return this.http.post(this.apiUrl + courseId + '/enroll/', {}, { headers: this.getHeaders() });
   }
 } 

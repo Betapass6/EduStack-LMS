@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -99,8 +100,26 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/edustack-frontend-server",
+            "main": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json"
+          }
+        },
+        "serve-ssr": {
+          "builder": "@angular/ssr-dev-server:dev-server",
+          "options": {
+            "browserTarget": "edustack-frontend:build",
+            "serverTarget": "edustack-frontend:server"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "6d338f17-529a-457f-bddb-8de6cb1ae5f8"
   }
 }

@@ -1,0 +1,21 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<ng-container *ngIf="!loading && !error">
+  <h2>Daftar Quiz</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let quiz of quizzes">
+      <mat-card style="width:100%">
+        <mat-card-header>
+          <mat-card-title>{{ quiz.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ quiz.description }}</p>
+          <span>Durasi: {{ quiz.duration_minutes }} menit</span>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="goToQuiz(quiz)">Kerjakan Quiz</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-list-item>
+  </mat-list>
+</ng-container> 

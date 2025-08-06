@@ -1,0 +1,45 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+<ng-container *ngIf="!loading && !error && report">
+  <h2>Laporan Nilai</h2>
+  <div>Rata-rata Assignment: {{ report.assignment_avg | number:'1.2-2' }}</div>
+  <div>Rata-rata Quiz: {{ report.quiz_avg | number:'1.2-2' }}</div>
+  <h3>Detail Assignment</h3>
+  <table mat-table [dataSource]="report.assignments" class="mat-elevation-z8">
+    <ng-container matColumnDef="assignment">
+      <th mat-header-cell *matHeaderCellDef>Assignment</th>
+      <td mat-cell *matCellDef="let a">{{ a.assignment }}</td>
+    </ng-container>
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef>Kelas</th>
+      <td mat-cell *matCellDef="let a">{{ a.course }}</td>
+    </ng-container>
+    <ng-container matColumnDef="grade">
+      <th mat-header-cell *matHeaderCellDef>Nilai</th>
+      <td mat-cell *matCellDef="let a">{{ a.grade }}</td>
+    </ng-container>
+    <ng-container matColumnDef="feedback">
+      <th mat-header-cell *matHeaderCellDef>Feedback</th>
+      <td mat-cell *matCellDef="let a">{{ a.feedback }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['assignment','course','grade','feedback']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['assignment','course','grade','feedback'];"></tr>
+  </table>
+  <h3>Detail Quiz</h3>
+  <table mat-table [dataSource]="report.quizzes" class="mat-elevation-z8">
+    <ng-container matColumnDef="quiz">
+      <th mat-header-cell *matHeaderCellDef>Quiz</th>
+      <td mat-cell *matCellDef="let q">{{ q.quiz }}</td>
+    </ng-container>
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef>Kelas</th>
+      <td mat-cell *matCellDef="let q">{{ q.course }}</td>
+    </ng-container>
+    <ng-container matColumnDef="score">
+      <th mat-header-cell *matHeaderCellDef>Skor</th>
+      <td mat-cell *matCellDef="let q">{{ q.score }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['quiz','course','score']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['quiz','course','score'];"></tr>
+  </table>
+</ng-container> 

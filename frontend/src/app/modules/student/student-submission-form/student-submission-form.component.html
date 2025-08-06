@@ -1,0 +1,15 @@
+<form (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-title>Submit Jawaban</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>File Jawaban</mat-label>
+        <input matInput type="file" (change)="onFileChange($event)" required />
+      </mat-form-field>
+      <div *ngIf="error" style="color:red">{{ error }}</div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form> 
